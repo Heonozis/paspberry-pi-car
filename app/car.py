@@ -41,7 +41,7 @@ class Car(object):
         ]
 
         for i, pin in enumerate(self.pwm):
-            pin.ChangeDutyCycle(values[i])
+            pin.ChangeDutyCycle(min(values[i], 100))
         self.values = values
 
     def stop(self):
