@@ -25,20 +25,17 @@ class Car(object):
             pin.start(self.values[i])
 
     def ride(self, radius, angle):
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
+        x = radius * math.sin(angle)
+        y = radius * math.cos(angle)
 
         forward = abs(y) if y > 0 else 0
         reverse = abs(y) if y < 0 else 0
         left = abs(x) if x > 0 else 0
-        right = abs(x) if x > 0 else 0
+        right = abs(x) if x < 0 else 0
 
         values = [forward, reverse, left, right]
-
         print(values)
-
-        values = values * 100
-
+        values = [x * 100 for x in values]
         print(values)
 
         for i, pin in enumerate(self.pwm):
