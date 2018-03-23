@@ -24,7 +24,7 @@ class Car(object):
         for i, pin in enumerate(self.pwm):
             pin.start(self.values[i])
 
-    def ride(self, radius, angle, nsteps=5, step_speed=0.3):
+    def ride(self, radius, angle):
         x = radius * math.cos(angle)
         y = radius * math.sin(angle)
 
@@ -35,15 +35,8 @@ class Car(object):
 
         values = [forward, reverse, left, right]
 
-        for step in range(nsteps):
-            for i, pin in enumerate(self.pwm):
-                print('setting pin {}'.format(i))
-                start_value = self.values[i]
-                end_value = values[i]
-                speeds = np.linspace(start_value, end_value, num=nsteps)
-                print('setting speed to {}'.format(speeds[step]))
-                pin.ChangeDutyCycle(int(speeds[step]))
-            time.sleep(step_speed)
+        for i, pin in enumerate(self.pwm):
+            pin.ChangeDutyCycle(int(values[i] * 100))
         self.values = values
 
     def stop(self):
