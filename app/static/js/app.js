@@ -17,6 +17,7 @@ joystick.on('move', function (event, data) {
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/ride', true);
     xhr.setRequestHeader("Content-type", "application/json");
-    xhr.send(JSON.stringify(form_data));
+    form_data = JSON.stringify(form_data)
+    xhr.send(form_data);
 })
 
