@@ -33,10 +33,12 @@ class Car(object):
         left = abs(x) if x > 0 else 0
         right = abs(x) if x < 0 else 0
 
-        values = [forward, reverse, left, right]
-        print(values)
-        values = [x * 100 for x in values]
-        print(values)
+        values = [
+            forward * 100,
+            reverse * 100,
+            left * 100,
+            right * 100
+        ]
 
         for i, pin in enumerate(self.pwm):
             pin.ChangeDutyCycle(values[i])
