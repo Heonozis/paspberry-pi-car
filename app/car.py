@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import numpy as np
+import math
 import time
 
 GPIO.setmode(GPIO.BCM)
@@ -23,7 +24,17 @@ class Car(object):
         for i, pin in enumerate(self.pwm):
             pin.start(self.values[i])
 
-    def ride(self, values, nsteps=5, step_speed=0.3):
+    def ride(self, radius, angle, nsteps=5, step_speed=0.3):
+        x = radius * math.cos(angle)
+        y = radius * math.sin(angle)
+
+        forward = abs(y) if y > 0 else 0
+        reverse = abs(y) if y < 0 else 0
+        left = abs(x) if x > 0 else 0
+        right = abs(x) if x > 0 else 0
+
+        values = [forward, reverse, left, right]
+
         for step in range(nsteps):
             for i, pin in enumerate(self.pwm):
                 print('setting pin {}'.format(i))
@@ -37,5 +48,5 @@ class Car(object):
 
     def stop(self):
         print("Stoping car...")
-        self.ride([0, 0, 0, 0])
+        self.ride(0, 0)
         GPIO.cleanup()

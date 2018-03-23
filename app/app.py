@@ -20,9 +20,10 @@ def drive():
 def ride():
     json_request = request.get_json()
     print('Incoming request: {}'.format(json_request))
-    direction = json_request["direction"]
-    car.ride(direction)
-    return jsonify({"status":"OK"})
+    angle = json_request["angle"]
+    radius = json_request["radius"]
+    car.ride(angle, radius)
+    return jsonify({"status": "OK"})
 
 
 @app.route("/stop", methods=["GET"])

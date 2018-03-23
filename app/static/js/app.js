@@ -6,7 +6,15 @@ var joystick = nipplejs.create({
 });
 
 joystick.on('move', function (event, data) {
-    console.log(event)
-    console.log(data)
+    radius = data.force
+    angle = data.angle.radian
+
+    var form_data = new FormData();
+    data.append('angle', angle);
+    data.append('radius', radius);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/ride', true);
+    xhr.send(data);
 })
 
