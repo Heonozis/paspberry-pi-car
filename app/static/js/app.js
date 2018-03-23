@@ -5,9 +5,10 @@ var joystick = nipplejs.create({
     color: 'red'
 });
 
-joystick.on('move', send_coordinates)
-
 function send_coordinates(event, data) {
     console.log(event)
     console.log(data)
 }
+
+joystick.on('move', send_coordinates)
+
