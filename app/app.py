@@ -22,7 +22,7 @@ def ride():
     print('Incoming request: {}'.format(json_request))
     angle = json_request["angle"]
     radius = json_request["radius"]
-    car.ride(angle, radius)
+    car.ride(radius, angle)
     return jsonify({"status": "OK"})
 
 

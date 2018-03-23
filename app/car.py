@@ -25,8 +25,8 @@ class Car(object):
             pin.start(self.values[i])
 
     def ride(self, radius, angle):
-        x = radius * math.sin(angle)
-        y = radius * math.cos(angle)
+        x = radius * math.cos(angle)
+        y = radius * math.sin(angle)
 
         forward = abs(y) if y > 0 else 0
         reverse = abs(y) if y < 0 else 0
