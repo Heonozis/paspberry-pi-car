@@ -10,11 +10,11 @@ joystick.on('move', function (event, data) {
     angle = data.angle.radian
 
     var form_data = new FormData();
-    data.append('angle', angle);
-    data.append('radius', radius);
+    form_data.append('angle', angle);
+    form_data.append('radius', radius);
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/ride', true);
-    xhr.send(data);
+    xhr.send(form_data);
 })
 
