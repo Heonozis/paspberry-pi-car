@@ -35,6 +35,8 @@ class Car(object):
 
         values = [forward, reverse, left, right]
 
+        print(values)
+
         for i, pin in enumerate(self.pwm):
             pin.ChangeDutyCycle(int(values[i] * 100))
         self.values = values
