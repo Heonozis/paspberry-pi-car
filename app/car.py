@@ -15,7 +15,7 @@ class Car(object):
     def start(self):
         print("Starting up car!")
         # forward, reverse, left, right
-        self.pins = [17, 27, 23, 24]
+        self.pins = [17, 23, 27, 24]
         # setup pins
         for pin in self.pins:
             GPIO.setup(pin, GPIO.OUT)
