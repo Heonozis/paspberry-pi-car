@@ -28,12 +28,16 @@ class Car(object):
         x = radius * math.cos(angle)
         y = radius * math.sin(angle)
 
-        forward = abs(y) * 100 if y > 0 else 0
-        reverse = abs(y) * 100 if y < 0 else 0
-        left = abs(x) * 100 if x > 0 else 0
-        right = abs(x) * 100 if x > 0 else 0
+        forward = abs(y) if y > 0 else 0
+        reverse = abs(y) if y < 0 else 0
+        left = abs(x) if x > 0 else 0
+        right = abs(x) if x > 0 else 0
 
         values = [forward, reverse, left, right]
+
+        print(values)
+
+        values = values * 100
 
         print(values)
 
