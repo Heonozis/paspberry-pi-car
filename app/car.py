@@ -28,17 +28,17 @@ class Car(object):
         x = radius * math.cos(angle)
         y = radius * math.sin(angle)
 
-        forward = abs(y) if y > 0 else 0
-        reverse = abs(y) if y < 0 else 0
-        left = abs(x) if x > 0 else 0
-        right = abs(x) if x > 0 else 0
+        forward = abs(y) * 100 if y > 0 else 0
+        reverse = abs(y) * 100 if y < 0 else 0
+        left = abs(x) * 100 if x > 0 else 0
+        right = abs(x) * 100 if x > 0 else 0
 
         values = [forward, reverse, left, right]
 
         print(values)
 
         for i, pin in enumerate(self.pwm):
-            pin.ChangeDutyCycle(int(values[i] * 100))
+            pin.ChangeDutyCycle(values[i])
         self.values = values
 
     def stop(self):
