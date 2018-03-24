@@ -21,3 +21,8 @@ joystick.on('move', function (event, data) {
     xhr.send(form_data);
 })
 
+joystick.on('shown', function(event, data) {
+    var camera_image = document.getElementById('camera')
+    camera_image.src = '/camera'
+})
+
