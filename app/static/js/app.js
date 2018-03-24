@@ -1,7 +1,7 @@
 var joystick = nipplejs.create({
     zone: document.getElementById('static'),
     mode: 'static',
-    position: {left: '50%', top: '50%'},
+    position: {left: '50%', top: '75%'},
     color: 'red'
 });
 
