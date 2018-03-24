@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, Response
+from camera import Camera
 from car import Car
 
 app = Flask(__name__)
@@ -34,6 +35,13 @@ def stop():
 @app.route("/start", methods=["GET"])
 def start():
     car.start()
+
+
+@app.route('/camera')
+def video_feed():
+    camera = Camera()
+    return Response(camera.stream(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == "__main__":
