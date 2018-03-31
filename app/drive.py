@@ -37,13 +37,6 @@ def start():
     car.start()
 
 
-@app.route('/camera')
-def video_feed():
-    camera = Camera()
-    return Response(camera.stream(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True)
 

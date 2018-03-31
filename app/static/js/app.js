@@ -23,6 +23,6 @@ joystick.on('move', function (event, data) {
 
 setTimeout(function() {
     var camera_image = document.getElementById('camera')
-    camera_image.src = '/camera'
+    camera_image.src = 'http://raspberrypi.local:8081/camera'
 }, 1000)
 

@@ -1,29 +1,27 @@
-import io
-import time
-import picamera
-from base_camera import BaseCamera
+from flask import Flask, jsonify, Response
+from flask_cors import cross_origin
+from base_camera import Camera
+from car import Car
+
+app = Flask(__name__)
+car = Car()
+car.start()
 
 
-class Camera(BaseCamera):
-    @staticmethod
-    def frames():
-        with picamera.PiCamera() as camera:
-            # let camera warm up
-            camera.resolution = (320, 240)
-            time.sleep(2)
-            stream = io.BytesIO()
-            for _ in camera.capture_continuous(stream, 'jpeg',
-                                                 use_video_port=True):
-                # return current frame
-                stream.seek(0)
-                yield stream.read()
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "OK"})
 
-                # reset stream for next frame
-                stream.seek(0)
-                stream.truncate()
 
-    def stream(self):
-        while True:
-            frame = self.get_frame()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+@cross_origin()
+@app.route('/camera')
+def video_feed():
+    camera = Camera()
+    return Response(camera.stream(),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8081, debug=True)
+
+print("Camera is down now")
