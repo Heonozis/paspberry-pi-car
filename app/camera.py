@@ -14,7 +14,7 @@ def health():
 
 
 @cross_origin()
-@app.route('/camera')
+@app.route('/')
 def video_feed():
     camera = Camera()
     return Response(camera.stream(),
@@ -22,6 +22,6 @@ def video_feed():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8081, debug=True)
+    app.run(host='0.0.0.0/camera', port=8080, debug=True)
 
 print("Camera is down now")
