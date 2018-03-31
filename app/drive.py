@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request, render_template, Response
-from camera import Camera
 from car import Car
 
 app = Flask(__name__)
