@@ -16,10 +16,11 @@ class Car(object):
         print("Starting up car!")
         # forward, reverse, left, right
         self.pins = [23, 24, 27, 17]
+        frequency = 50
         # setup pins
         for pin in self.pins:
             GPIO.setup(pin, GPIO.OUT)
-            self.pwm.append(GPIO.PWM(pin, 2000))
+            self.pwm.append(GPIO.PWM(pin, frequency))
         # start pins
         for i, pin in enumerate(self.pwm):
             pin.start(self.values[i])
