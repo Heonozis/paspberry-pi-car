@@ -20,7 +20,7 @@ class Car(object):
 
     def start(self):
         print("Starting up car!")
-        frequency = 100
+        frequency = 1000
         # setup pins
         GPIO.setup(self.forward_pin, GPIO.OUT)
         GPIO.setup(self.reverse_pin, GPIO.OUT)
