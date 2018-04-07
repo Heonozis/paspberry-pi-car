@@ -31,7 +31,7 @@ class Car(object):
         self.drive_pwm = GPIO.PWM(self.drive_pin, frequency)
         self.drive_pwm.start(0)
 
-        GPIO.setup(self.drive_pin, GPIO.OUT)
+        GPIO.setup(self.steer_pin, GPIO.OUT)
         self.steer_pwm = GPIO.PWM(self.steer_pin, frequency)
         self.steer_pwm.start(0)
 
