@@ -8,42 +8,47 @@ GPIO.setwarnings(False)
 
 
 class Car(object):
-    pins = []
-    pwm = []
-    values = [0, 0, 0, 0]
+    drive_pwm = None
+    steer_pwm = None
+
+    drive_pin = 5
+    steer_pin = 6
+    forward_pin = 23
+    reverse_pin = 24
+    left_pin = 27
+    right_pin = 17
 
     def start(self):
         print("Starting up car!")
-        # forward, reverse, left, right
-        self.pins = [23, 24, 27, 17]
-        frequency = 50
+        frequency = 100
         # setup pins
-        for pin in self.pins:
-            GPIO.setup(pin, GPIO.OUT)
-            self.pwm.append(GPIO.PWM(pin, frequency))
-        # start pins
-        for i, pin in enumerate(self.pwm):
-            pin.start(self.values[i])
+        GPIO.setup(self.forward_pin, GPIO.OUT)
+        GPIO.setup(self.reverse_pin, GPIO.OUT)
+        GPIO.setup(self.left_pin, GPIO.OUT)
+        GPIO.setup(self.right_pin, GPIO.OUT)
+
+        GPIO.setup(self.drive_pin, GPIO.OUT)
+        self.drive_pwm = GPIO.PWM(self.drive_pin, frequency)
+        self.drive_pwm.start(0)
+
+        GPIO.setup(self.drive_pin, GPIO.OUT)
+        self.steer_pwm = GPIO.PWM(self.steer_pin, frequency)
+        self.steer_pwm.start(0)
 
     def ride(self, radius, angle):
         x = radius * math.cos(angle)
         y = radius * math.sin(angle)
 
-        forward = abs(y) if y > 0 else 0
-        reverse = abs(y) if y < 0 else 0
-        left = abs(x) if x > 0 else 0
-        right = abs(x) if x < 0 else 0
+        drive_speed = abs(y) * 100
+        steer_speed = abs(x) * 100
 
-        values = [
-            forward * 100,
-            reverse * 100,
-            left * 100,
-            right * 100
-        ]
+        GPIO.output(self.forward_pin, GPIO.HIGH if x > 0 else GPIO.LOW)
+        GPIO.output(self.reverse_pin, GPIO.HIGH if x < 0 else GPIO.LOW)
+        GPIO.output(self.right_pin, GPIO.HIGH if y > 0 else GPIO.LOW)
+        GPIO.output(self.left_pin, GPIO.HIGH if y < 0 else GPIO.LOW)
 
-        for i, pin in enumerate(self.pwm):
-            pin.ChangeDutyCycle(min(values[i], 100))
-        self.values = values
+        self.drive_pwm.ChangeDutyCycle(min(drive_speed, 100))
+        self.steer_pwm.ChangeDutyCycle(min(steer_speed, 100))
 
     def stop(self):
         print("Stoping car...")
