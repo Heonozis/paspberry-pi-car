@@ -42,10 +42,10 @@ class Car(object):
         drive_speed = abs(y) * 100
         steer_speed = abs(x) * 100
 
-        GPIO.output(self.forward_pin, x > 0)
-        GPIO.output(self.reverse_pin, x < 0)
-        GPIO.output(self.right_pin, y > 0)
-        GPIO.output(self.left_pin, y < 0)
+        GPIO.output(self.forward_pin, y > 0)
+        GPIO.output(self.reverse_pin, y < 0)
+        GPIO.output(self.right_pin, x > 0)
+        GPIO.output(self.left_pin, x < 0)
 
         self.drive_pwm.ChangeDutyCycle(min(drive_speed, 100))
         self.steer_pwm.ChangeDutyCycle(min(steer_speed, 100))
