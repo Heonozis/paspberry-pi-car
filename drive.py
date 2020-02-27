@@ -1,5 +1,5 @@
-from flask import Flask, jsonify, request, render_template, Response
-from car import Car
+from flask import Flask, jsonify, request, render_template
+from app.car import Car
 
 app = Flask(__name__)
 car = Car()

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, Response
 from flask_cors import cross_origin
-from base_camera import Camera
-from car import Car
+from app.camera import Camera
+from app.car import Car
 
 app = Flask(__name__)
 car = Car()
